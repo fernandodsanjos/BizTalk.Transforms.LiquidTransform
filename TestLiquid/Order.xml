@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Order><OrderId>1001</OrderId><OrderLine>
+<RowNo>1</RowNo>
+    <ArticleNo>2301</ArticleNo>
+  </OrderLine>
+  <OrderLine>
+    <RowNo>2</RowNo>
+    <ArticleNo>2302</ArticleNo>
+  </OrderLine>
+</Order>

@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalk.Transforms.LiquidTransform", "BizTalk.Transforms.LiquidTransform.csproj", "{069F2F47-006D-428B-8BA3-BBE4C6B0B090}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLiquid", "TestLiquid\TestLiquid.csproj", "{1F8CB6CF-ABDE-4B9B-B34A-7375DE6172A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BtsTestLiquid", "BtsTestLiquid\BtsTestLiquid.btproj", "{F5317673-166D-4EA8-A9C6-4041230D1CC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{069F2F47-006D-428B-8BA3-BBE4C6B0B090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069F2F47-006D-428B-8BA3-BBE4C6B0B090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069F2F47-006D-428B-8BA3-BBE4C6B0B090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069F2F47-006D-428B-8BA3-BBE4C6B0B090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F8CB6CF-ABDE-4B9B-B34A-7375DE6172A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8CB6CF-ABDE-4B9B-B34A-7375DE6172A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F8CB6CF-ABDE-4B9B-B34A-7375DE6172A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F8CB6CF-ABDE-4B9B-B34A-7375DE6172A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5317673-166D-4EA8-A9C6-4041230D1CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5317673-166D-4EA8-A9C6-4041230D1CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5317673-166D-4EA8-A9C6-4041230D1CC6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F5317673-166D-4EA8-A9C6-4041230D1CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5317673-166D-4EA8-A9C6-4041230D1CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5317673-166D-4EA8-A9C6-4041230D1CC6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {910C7D04-1273-41E1-B5F7-BFB642F70F43}
+	EndGlobalSection
+EndGlobal

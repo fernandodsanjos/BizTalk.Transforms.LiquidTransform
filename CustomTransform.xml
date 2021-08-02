@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CustomTransforms>
+  <Transform 
+    DisplayName="Saxon 9 HE"
+    TypeAssemblyQualifiedName="Microsoft.XLANGs.BaseTypes.SaxonHEXsltTransform, Microsoft.XLANGs.BaseTypes, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"/>
+<Transform 
+    DisplayName="Liquid"
+    TypeAssemblyQualifiedName="BizTalk.Transforms.LiquidTransform.LiquidTransform, BizTalk.Transforms.LiquidTransform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=969e815b781bd674"/>
+</CustomTransforms>
