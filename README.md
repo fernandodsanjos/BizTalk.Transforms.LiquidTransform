@@ -6,7 +6,7 @@ Liquid transform engine for BizTalk
 
 https://docs.microsoft.com/en-us/biztalk/core/technical-reference/xslt-custom-transform-implementation
 
-JSON content if becomming more and more the standard format. Unfortunally BizTalk uses XML internaly, forcing BizTalk developers to constantly transform between JSON and XML.
+JSON content if becoming more and more the standard format. Unfortunally BizTalk uses XML internaly, forcing BizTalk developers to constantly transform between JSON and XML.
 
 With Biztalk 2020 its now possible to create/add custom transform engines, making it possible to add a liquid transform that makes it possible to transform JSON.
 
