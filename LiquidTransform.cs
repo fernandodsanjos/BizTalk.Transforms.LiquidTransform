@@ -12,6 +12,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Dynamic;
 using Microsoft.BizTalk.Streaming;
+using System.Runtime.InteropServices;
+using System.Globalization;
 
 namespace BizTalk.Transforms.LiquidTransform
 {
@@ -19,11 +21,29 @@ namespace BizTalk.Transforms.LiquidTransform
     {
         //https://docs.microsoft.com/en-us/biztalk/core/technical-reference/xslt-custom-transform-implementation
         protected Template Processor;
+        protected RenderParameters parameters;
+        protected Hash variables;
+
+        protected RenderParameters Parameters
+        {
+            get
+            {
+                if (parameters == null)
+                    parameters = new RenderParameters(System.Globalization.CultureInfo.CurrentCulture);
+
+                return parameters;
+            }
+        }
+
+
+
         public override void Load(string liquid)
         {
-
+ 
             Processor = Template.Parse(liquid);
            
+      
+
         }
 
         public override void Transform(Stream input, IDictionary<XmlQualifiedName, object> xsltArguments, Stream results)
@@ -38,25 +58,25 @@ namespace BizTalk.Transforms.LiquidTransform
             byte[] startBytes = new byte[10];
             input.Read(startBytes, 0, startBytes.Length);
 
-            var fullInput = UTF8Encoding.UTF8.GetString(startBytes) + inputReader.ReadToEnd();
+            input.Position = 0;
+
+           
 
             switch (ObjectType(startBytes))
             {
                 case xmlStart:
-                    DeserializeXml(fullInput, results);
+                    DeserializeXml(input, results);
                     break;
                 case jsonArray:
-                    DeserializeArray(fullInput, results);
+                    DeserializeArray(input, results);
                     break;
                 case jsonObject:
-                    DeserializeObject(fullInput, results);
+                    DeserializeObject(input, results);
                     break;
             }
 
 
-
-
-
+            
 
             //   LocalVariables = Hash.FromAnonymousObject(argument);
 
@@ -64,32 +84,47 @@ namespace BizTalk.Transforms.LiquidTransform
 
         public override void RegisterExtension(string namespaceUri, string assemblyName, string className)
         {
-            // Assembly assembly = Assembly.Load(assemblyName);
-            // Object obj = assembly.CreateInstance(className);
-            //will be used to 
-            //- add object to serialize
-            //- add liquid filters
-            //- add liquid tags
+            if (namespaceUri == "BizTalk.Transforms.LiquidTransform.ILiquidRegister")
+            {
+                dynamic extension = null;
+
+                try
+                {
+                    Assembly assembly = Assembly.Load(assemblyName);
+
+                    extension = assembly.CreateInstance(className);
+                }
+                catch (Exception)
+                {
+
+                    throw new Exception($"RegisterExtension: Could not load  {assemblyName} {className}");
+                }
+
+                extension.Register(Parameters);
+                
+
+            }
 
 
 
         }
 
-        protected void Render(Hash input, Stream results)
+        protected void Render(dynamic input, Stream results)
         {
-           
-            var result = Processor.Render(input);
-
-            using (StreamWriter writer = new StreamWriter(results, Encoding.UTF8, 1024, true))
+            if(Parameters.LocalVariables == null)
             {
-                writer.Write(result);
-                writer.Flush();
+                Parameters.LocalVariables = Hash.FromDictionary(input);
             }
-
-            results.Position = 0;
-
+            else
+            {
+                Hash hash = Parameters.LocalVariables;
+                hash.Merge(input);
+                
+            }
             
-
+            Processor.Render(results, Parameters);
+           
+            results.Position = 0;
 
         }
 
@@ -108,33 +143,32 @@ namespace BizTalk.Transforms.LiquidTransform
 
             return res;
         }
-        protected void DeserializeXml(string xml, Stream results)
+        protected void DeserializeXml(Stream xml, Stream results)
         {
-            
-            Render(Hash.FromAnonymousObject(
-              new { data = new XmlNode(xml) }
-            ),results);
+            var xmlDictionary = XmlToDictionary.Parse(xml);
 
-            
-        }
-        protected void DeserializeObject(string json, Stream results)
-        {
+            Render(xmlDictionary, results);
 
-            dynamic expandoObj = JsonConvert.DeserializeObject<ExpandoObject>(json);
-
-            Render(Hash.FromDictionary(expandoObj),  results);
 
         }
-
-        protected void DeserializeArray(string json, Stream results)
+        protected void DeserializeObject(Stream json, Stream results)
         {
+            StreamReader reader = new StreamReader(json);
+            dynamic expandoObj = JsonConvert.DeserializeObject<ExpandoObject>(reader.ReadToEnd());
 
-            dynamic expandoObj = JsonConvert.DeserializeObject<dynamic[]>(json);
+            Render(expandoObj,  results);
+
+        }
+
+        protected void DeserializeArray(Stream json, Stream results)
+        {
+            StreamReader reader = new StreamReader(json);
+            dynamic expandoObj = JsonConvert.DeserializeObject<dynamic[]>(reader.ReadToEnd());
 
             Dictionary<string, object> items = new Dictionary<string, object>();
             items.Add("items", expandoObj);
 
-            Render(Hash.FromDictionary(items),results);
+            Render(items,results);
 
         }
 

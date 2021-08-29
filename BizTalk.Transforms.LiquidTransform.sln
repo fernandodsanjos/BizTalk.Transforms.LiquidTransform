@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalk.Transforms.LiquidTransform", "BizTalk.Transforms.LiquidTransform.csproj", "{069F2F47-006D-428B-8BA3-BBE4C6B0B090}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLiquid", "TestLiquid\TestLiquid.csproj", "{1F8CB6CF-ABDE-4B9B-B34A-7375DE6172A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalk.Transforms.LiquidTransform.Console", "TestLiquid\BizTalk.Transforms.LiquidTransform.Console.csproj", "{1F8CB6CF-ABDE-4B9B-B34A-7375DE6172A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BtsTestLiquid", "BtsTestLiquid\BtsTestLiquid.btproj", "{F5317673-166D-4EA8-A9C6-4041230D1CC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalk.Transforms.LiquidTransform.Tests", "BtsTestLiquid\BizTalk.Transforms.LiquidTransform.Tests.btproj", "{F5317673-166D-4EA8-A9C6-4041230D1CC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalk.Transforms.LiquidTransform.PipelineComponents", "PipelineComponent\BizTalk.Transforms.LiquidTransform.StripCDATA\BizTalk.Transforms.LiquidTransform.PipelineComponents.csproj", "{F698E3D4-91D4-4EEB-A3D4-C9EFDDEC05E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{F5317673-166D-4EA8-A9C6-4041230D1CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5317673-166D-4EA8-A9C6-4041230D1CC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5317673-166D-4EA8-A9C6-4041230D1CC6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F698E3D4-91D4-4EEB-A3D4-C9EFDDEC05E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F698E3D4-91D4-4EEB-A3D4-C9EFDDEC05E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F698E3D4-91D4-4EEB-A3D4-C9EFDDEC05E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F698E3D4-91D4-4EEB-A3D4-C9EFDDEC05E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

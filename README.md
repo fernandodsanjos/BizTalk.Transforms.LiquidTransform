@@ -14,7 +14,7 @@ This component uses DotLiquid that enables transform of any format. That is beca
 That means before one can use DotLiquid one needs to to serialize JSON or XML to a object.
 At the moment the component transforms all JSON and XML content to anonymous objects.
 
-Transformation works both on Receive and Send ports and also when mapping in Orchestrations.
+Transformation works both on Receive and Send ports and also when mapping in Orchestrations. <br/>When creating JSON output one must use the **CDATA tag** component in conjunction with the **StripCDATA** pipelinecomponent as creating JSON output directly is not allowed. Unfortunately it is not allowed to create JSON output inside Orchestrations.
 
 ### Installation
 
@@ -33,13 +33,24 @@ After you have followed above instructions and restarted Visual studio you shoul
 ![](engine.gif)
 
 ### Usage
-
 You will need to use a dummy schema for JSON messages, but be aware that the messagetype will be used in runtime so give it a meningful namespace and root name.
+#### Custom XSLT
+
 
 Use a custom .liquid file and add it to the BizTalk maps Custom XSLT property
 
 ![](liquidtemplate.gif)
 
 You should now be able to test the map and get a valid output. Make sure not to validate JSON input/output.
+
+#### Extensionobjects
+You can use extensionobjects to add custom Filter,Tags or other objects. Bellow is a sample usage of CDATA tag that generates needed xml envelope for when creating JSON output.
+It's very important that all objects use the namespace _BizTalk.Transforms.LiquidTransform.ILiquidRegister_.
+
+![](extensionobjects.gif)
+
+All ILiquidRegister objects added to the extensionobjects file can then be used in the liquid map.
+
+![](cdatatag.gif)
 
 

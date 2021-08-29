@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 using System.Xml;
 using DotLiquid;
 
-namespace TestLiquid
+namespace BizTalk.Transforms.LiquidTransform
 {
+    /// <summary>
+    /// Generic liquid XML class. Thanks to Deane Barker, https://gist.github.com/deanebarker/408970e5cc2ebd3597a4d87a1cadc672
+    /// </summary>
     public class XmlNode : Drop
     {
         private const string attributeMethodName = "attr";

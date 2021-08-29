@@ -8,8 +8,8 @@
     <ProjectTypeGuids>{EF7E3281-CD33-11D4-8326-00C04FA0CE8D};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>library</OutputType>
     <GenericProcessing>true</GenericProcessing>
-    <RootNamespace>BizTalk.Transforms.LiquidTransform</RootNamespace>
-    <AssemblyName>BizTalk.Transforms.LiquidTransform</AssemblyName>
+    <RootNamespace>BizTalk.Transforms.LiquidTransform.Tests</RootNamespace>
+    <AssemblyName>BizTalk.Transforms.LiquidTransform.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <BpelCompliance>True</BpelCompliance>
   </PropertyGroup>
@@ -39,8 +39,13 @@
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BizTalk.Transforms.LiquidTransform.PipelineComponents, Version=1.0.0.0, Culture=neutral, PublicKeyToken=969e815b781bd674, processorArchitecture=MSIL" />
     <Reference Include="BizTalkComponents.PipelineComponents.SetProperty, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4b1b8e566f75fed3, processorArchitecture=MSIL">
       <HintPath>..\packages\BizTalkComponents.PipelineComponents.SetProperty.1.7.0.0\lib\net40\BizTalkComponents.PipelineComponents.SetProperty.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.BizTalk.Component.Utilities, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.BizTalk.Component.Utilities\v4.0_3.0.1.0__31bf3856ad364e35\Microsoft.BizTalk.Component.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -73,42 +78,65 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Schemas\jsonperson.xsd.cs">
+      <DependentUpon>jsonperson.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Map Include="Map1.btm">
-      <TypeName>Map1</TypeName>
-      <Namespace>BtsTestLiquid</Namespace>
-      <SubType>Task</SubType>
-    </Map>
-  </ItemGroup>
-  <ItemGroup>
-    <Schema Include="jsonperson.xsd">
-      <TypeName>jsonperson</TypeName>
-      <Namespace>BtsTestLiquid</Namespace>
+    <None Include="Maps\FromXml\PersonToJson.liquid" />
+    <None Include="key.snk" />
+    <None Include="Maps\FromJson\PersonToXml.liquid" />
+    <None Include="packages.config" />
+    <None Include="Samples\person.json" />
+    <Schema Include="Schemas\xmlenvelope.xsd">
+      <TypeName>xmlenvelope</TypeName>
+      <Namespace>BizTalk.Transforms.LiquidTransform.Tests.Schemas</Namespace>
       <SubType>Task</SubType>
     </Schema>
   </ItemGroup>
   <ItemGroup>
-    <None Include="key.snk" />
-    <None Include="arraytoxml.liquid" />
-    <None Include="xmltojson.liquid" />
-    <None Include="Map1.liquid" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Pipeline Include="SetMessagetype.btp">
+    <Pipeline Include="Pipelines\SetMessagetype.btp">
       <TypeName>SetMessagetype</TypeName>
       <Namespace>BtsTestLiquid</Namespace>
       <SubType>Task</SubType>
     </Pipeline>
   </ItemGroup>
   <ItemGroup>
-    <XLang Include="BizTalk Orchestration1.odx">
-      <TypeName>BizTalk_Orchestration1</TypeName>
-      <Namespace>BtsTestLiquid</Namespace>
+    <Content Include="Maps\FromJson\PersonToXml_extxml.xml" />
+    <Map Include="Maps\FromXml\PersonToJson.btm">
+      <TypeName>PersonToJson</TypeName>
+      <Namespace>BizTalk.Transforms.LiquidTransform.BTSTests.FromXml</Namespace>
       <SubType>Task</SubType>
-    </XLang>
+    </Map>
+    <Pipeline Include="Pipelines\StripCDATA.btp">
+      <TypeName>StripCDATA</TypeName>
+      <Namespace>BizTalk.Transforms.LiquidTransform.Tests.Pipelines</Namespace>
+      <SubType>Task</SubType>
+    </Pipeline>
+    <Content Include="Maps\FromXml\PersonToJson_extxml.xml" />
+    <Content Include="Samples\person.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BizTalk.Transforms.LiquidTransform.csproj">
+      <Project>{069f2f47-006d-428b-8ba3-bbe4c6b0b090}</Project>
+      <Name>BizTalk.Transforms.LiquidTransform</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Schema Include="Schemas\jsonperson.xsd">
+      <SubType>Task</SubType>
+      <TypeName>jsonperson</TypeName>
+      <Namespace>BizTalk.Transforms.LiquidTransform.Tests.Schemas</Namespace>
+    </Schema>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Map Include="Maps\FromJson\PersonToXml.btm">
+      <SubType>Task</SubType>
+      <TypeName>PersonToXml</TypeName>
+      <Namespace>BizTalk.Transforms.LiquidTransform.BTSTests.FromJson</Namespace>
+    </Map>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\BizTalk\BizTalkC.targets" />
